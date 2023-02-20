@@ -50,7 +50,9 @@ int main() {
 
     // Verificar que los resultados son iguales
     verify();
-
+    
+    // Número de elementos
+    cout << "N = " << N <<endl;
     // Calcular speedUp
     cout << "SpeedUp = " << float(serialTimer.count())/float(parallelTimer.count()) << endl;
 
