@@ -39,12 +39,12 @@ int main() {
     cout << "SpeedUp = " << float(serialTimer.count())/float(parallelTimer.count()) << endl;
 
     //MultiplyWithOutAMP();
-    getchar();
+    //getchar();
 }
 
 void serialMultiply(){
     int A[4][3] = {{1, 4, 2}, {2, 5, 3}, {3, 6,7}, {4,8,9}};
-    int B[3][4] = {{7, 8, 9,15}, {10, 11, 12,9}, {10,5,6,2};
+    int B[3][4] = {{7, 8, 9,15}, {10, 11, 12,9}, {10,5,6,2}};
     for (int row = 0; row < 4; row++) {
         for (int col = 0; col < 4; col++) {
             // Multiply the row of A by the column of B to get the row, column of product.
@@ -55,16 +55,18 @@ void serialMultiply(){
         }
         cout << "\n";
     }
-}
+    }
 
 void parallelMultiply(){
     int A[4][3] = {{1, 4, 2}, {2, 5, 3}, {3, 6,7}, {4,8,9}};
     int B[3][4] = {{7, 8, 9,15}, {10, 11, 12,9}, {10,5,6,2}};
-#pragma omp parallel for
-    for (int row = 0; row < 4; row++) {
-        for (int col = 0; col < 4; col++) {
+//#pragma omp parallel for
+    for (int row = 0; row < 4; row++) { // Efecto sobre las filas
+        //#pragma omp parallel for
+        for (int col = 0; col < 4; col++) { // Efecto sobre las columnas
+        #pragma omp parallel for
             // Multiply the row of A by the column of B to get the row, column of product.
-            for (int inner = 0; inner < 3; inner++) {
+            for (int inner = 0; inner < 3; inner++) { // Efecto sobre filas y columnas
                 parallelM[row][col] += A[row][inner] * B[inner][col];
             }
             cout << parallelM[row][col] << "  ";
