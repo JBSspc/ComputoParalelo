@@ -16,8 +16,8 @@ void initMat();
 // Definición de variables globales
 //int A[2][2];
 //int B[2][2];
-int serialM[3][3];
-int parallelM[3][3];
+int serialM[4][4];
+int parallelM[4][4];
 
 int main() {
 
@@ -43,12 +43,12 @@ int main() {
 }
 
 void serialMultiply(){
-    int A[3][2] = {{1, 4}, {2, 5}, {3, 6}};
-    int B[2][3] = {{7, 8, 9}, {10, 11, 12}};
-    for (int row = 0; row < 3; row++) {
-        for (int col = 0; col < 3; col++) {
+    int A[4][3] = {{1, 4, 2}, {2, 5, 3}, {3, 6,7}, {4,8,9}};
+    int B[3][4] = {{7, 8, 9,15}, {10, 11, 12,9}, {10,5,6,2};
+    for (int row = 0; row < 4; row++) {
+        for (int col = 0; col < 4; col++) {
             // Multiply the row of A by the column of B to get the row, column of product.
-            for (int inner = 0; inner < 2; inner++) {
+            for (int inner = 0; inner < 3; inner++) {
                 serialM[row][col] += A[row][inner] * B[inner][col];
             }
             cout << serialM[row][col] << "  ";
@@ -58,13 +58,13 @@ void serialMultiply(){
 }
 
 void parallelMultiply(){
-    int A[3][2] = {{1, 4}, {2, 5}, {3, 6}};
-    int B[2][3] = {{7, 8, 9}, {10, 11, 12}};
+    int A[4][3] = {{1, 4, 2}, {2, 5, 3}, {3, 6,7}, {4,8,9}};
+    int B[3][4] = {{7, 8, 9,15}, {10, 11, 12,9}, {10,5,6,2}};
 #pragma omp parallel for
-    for (int row = 0; row < 3; row++) {
-        for (int col = 0; col < 3; col++) {
+    for (int row = 0; row < 4; row++) {
+        for (int col = 0; col < 4; col++) {
             // Multiply the row of A by the column of B to get the row, column of product.
-            for (int inner = 0; inner < 2; inner++) {
+            for (int inner = 0; inner < 3; inner++) {
                 parallelM[row][col] += A[row][inner] * B[inner][col];
             }
             cout << parallelM[row][col] << "  ";
