@@ -7,8 +7,9 @@
 
 using namespace std;
 using namespace chrono;
-#define N 500
+#define N 2500
 // Definición de funciones
+void parallelMultiplyCollapse();
 void parallelMultiply1();
 void parallelMultiply2();
 void parallelMultiply3();
@@ -40,7 +41,8 @@ int main() {
 
     // Multiplicación paralela
     start = high_resolution_clock::now();
-    parallelMultiply1(); //Nivel 1
+    parallelMultiplyCollapse();
+    //parallelMultiply1(); //Nivel 1
     //parallelMultiply2(); // Nivel 2
     //parallelMultiply3(); // Nivel 3
     end = high_resolution_clock::now();
@@ -64,7 +66,6 @@ void initMat(){
 void serialMultiply(){
     for (int row = 0; row < N; row++) {
         for (int col = 0; col < N; col++) {
-            // Multiply the row of A by the column of B to get the row, column of product.
             for (int inner = 0; inner < N; inner++) {
                 serialM[row][col] += A[row][inner] * B[inner][col];
             }
@@ -108,11 +109,23 @@ void parallelMultiply3(){
         for (int col = 0; col < N; col++) { // Efecto sobre las columnas
             temporal=0; // para resetear la suma
 #pragma omp parallel for reduction(+:temporal)
-            // Multiply the row of A by the column of B to get the row, column of product.
             for (int inner = 0; inner < N; inner++) { // Efecto sobre filas y columnas
                 temporal+= A[row][inner] * B[inner][col];
             }
             parallelM[row][col]= temporal;
+            //cout << parallelM[row][col] << "  "; // descomentar para imprimir mat
+        }
+        //cout << "\n"; // descomentar para imprimir
+    }
+}
+
+void parallelMultiplyCollapse(){
+#pragma omp parallel for collapse(3)
+    for (int row = 0; row < N; row++) { // Efecto sobre las filas
+        for (int col = 0; col < N; col++) { // Efecto sobre las columnas
+            for (int inner = 0; inner < N; inner++) { // Efecto sobre filas y columnas
+                parallelM[row][col] += A[row][inner] * B[inner][col];
+            }
             //cout << parallelM[row][col] << "  "; // descomentar para imprimir mat
         }
         //cout << "\n"; // descomentar para imprimir
