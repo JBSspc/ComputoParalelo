@@ -1,0 +1,70 @@
+PASO 1. ENCONTRAR EL CENTROIDE
+Centroide está en
+
+			(V1 + V2 + V3)/3		---> ((X1 + 2*X2)/3, (2*Y1 + Y2)/3)
+
+Cx = (X1 + 2*X2)/3
+Cy = (2*Y1 + Y2)/3
+C = (Cx, Cy)
+
+
+Donde
+
+	V1 = (X1, Y1)	V2 = (X2, Y1)	V3 = (X2, Y2)
+
+Por lo tanto, ocupamos 4 vectores
+
+X1[N] = aleatorios % 50
+
+X2[N] = aleatorios % 50
+
+Y1[N] = aleatorios % 50
+
+Y2[N] = aleatorios % 50
+
+PASO 2. CALCULAR LA DISTANCIA AL ORIGEN
+
+	Fórmula de la distancia entre dos puntos:	d = ((Cx-0)^2 + (Cy-0)^2)^(1/2)
+
+PASO 3. ENOCNTRAR LA DISTANCIA MÍNIMA AL ORIGEN
+
+ min
+
+PASO 4. OBTENER EL ÁREA DE CADA TRIÁNGULO
+
+	Área de un triángulo rectángulo: 	(b*h)/2
+	b = X2-X1
+	h = Y2-Y1
+
+	---> A = ((X2-X1)*(Y2-Y1))/2
+
+PASO 5. ENCONTRAR EL ÁREA MÁS PEQUEÑA
+
+
+min
+
+
+RESULTADOS EN CONSOLA
+
+C:\Users\sofia\CLionProjects\untitled4\cmake-build-debug\untitled4.exe
+Initialization finished, elapsed time: 5556 milliseconds
+Serial min distance finished, elapsed time: 20121 milliseconds
+Min distancia al origen (Serial) = 0
+Parallel min distance finished, elapsed time: 18552 milliseconds
+Min distancia al origen (Paralelo) = 0
+N = 100000000
+SpeedUp Problema 1 (min dis cent al origen) = 1.08462
+Eficiencia Problema 1 (min area) =0.135578
+
+Serial min area finished, elapsed time: 4466 milliseconds
+Min area (Serial) = 0
+Parallel min area finished, elapsed time: 2413 milliseconds
+Min area (Paralelo) = 0
+N = 100000000
+SpeedUp Problema 2 (min area) = 1.85095
+Eficiencia Problema 2 (min area) =0.231369
+
+Process finished with exit code 0
+
+
+Creo que me sale cero por lo de int y float 
